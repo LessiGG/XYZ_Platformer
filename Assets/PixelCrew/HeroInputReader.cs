@@ -1,5 +1,4 @@
-﻿using PixelCrew;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace PixelCrew
@@ -11,12 +10,6 @@ namespace PixelCrew
         {
             var direction = context.ReadValue<Vector2>();
             _hero.SetDirection(direction);
-        }
-
-        public void OnSaySomething(InputAction.CallbackContext context)
-        {
-            if (context.canceled)
-                _hero.SaySomething();
         }
     }
 }

@@ -9,8 +9,11 @@ namespace PixelCrew
 
         private void LateUpdate()
         {
-            var destination = new Vector3(_target.position.x, _target.position.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, destination, Time.deltaTime * _damping);
+            var position = transform.position;
+            var targetPosition = _target.position;
+            var destination = new Vector3(targetPosition.x, targetPosition.y, position.z);
+            position = Vector3.Lerp(position, destination, Time.deltaTime * _damping);
+            transform.position = position;
         }
     }
 }

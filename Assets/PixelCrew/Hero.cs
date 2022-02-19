@@ -9,8 +9,11 @@ namespace PixelCrew
     {
         [SerializeField] private float _speed;
         [SerializeField] private float _jumpForce;
+        [SerializeField] private int _extraJumpsCount;
         [SerializeField] private LayerCheck _groundCheck;
         public int _coinsAmount;
+        private int _adjustedJumpsCount;
+        private bool _isGrounded;
 
         private Vector2 _direction;
         private Rigidbody2D _rigidbody;
@@ -23,6 +26,7 @@ namespace PixelCrew
 
         private void Awake()
         {
+            _adjustedJumpsCount = _extraJumpsCount;
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _renderer = GetComponent<SpriteRenderer>();
@@ -33,30 +37,65 @@ namespace PixelCrew
             _direction = direction;
         }
 
+        private void Update()
+        {
+            _isGrounded = IsGrounded();
+            if (_isGrounded)
+                _extraJumpsCount = _adjustedJumpsCount;
+        }
+
         private void FixedUpdate()
         {
-            UpdateSpriteDirection();
-
-            _rigidbody.velocity = new Vector2(_direction.x * _speed, _rigidbody.velocity.y);
-
-            var isJumping = _direction.y > 0;
-            var isGrounded = IsGrounded();
-            if (isJumping)
-            {
-                if (isGrounded && _rigidbody.velocity.y <= 0.01)
-                {
-                    _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-                }
-            }
-
-            else if (_rigidbody.velocity.y > 0)
-            {
-                _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y * .5f);
-            }
+            var xVelocity = CalculateXVelocity();
+            var yVelocity = CalculateYVelocity();
+            _rigidbody.velocity = new Vector2(xVelocity, yVelocity);
 
             _animator.SetFloat(VerticalVelocityKey, _rigidbody.velocity.y);
             _animator.SetBool(IsRunningKey, _direction.x != 0);
-            _animator.SetBool(IsGroundedKey, isGrounded);
+            _animator.SetBool(IsGroundedKey, _isGrounded);
+            
+            UpdateSpriteDirection();
+        }
+
+        private float CalculateXVelocity()
+        {
+            var xVelocity = _direction.x * _speed;
+
+            return xVelocity;
+        }
+
+        private float CalculateYVelocity()
+        {
+            var yVelocity = _rigidbody.velocity.y;
+            var isJumpPressing = _direction.y > 0;
+            
+            if (isJumpPressing)
+            {
+                yVelocity = CalculateJumpVelocity(yVelocity);
+            }
+
+            else if (_rigidbody.velocity.y > 0)
+                yVelocity *= 0.5f;
+
+            return yVelocity;
+        }
+
+        private float CalculateJumpVelocity(float yVelocity)
+        {
+            var isFalling = _rigidbody.velocity.y <= 0.001f;
+            if (!isFalling) return yVelocity;
+            if (_isGrounded)
+            {
+                yVelocity += _jumpForce;
+            }
+            
+            else if (_extraJumpsCount > 0)
+            {
+                yVelocity = _jumpForce;
+                _extraJumpsCount--;
+            }
+            
+            return yVelocity;
         }
 
         private void UpdateSpriteDirection()
@@ -70,11 +109,6 @@ namespace PixelCrew
         private bool IsGrounded()
         {
             return _groundCheck.IsTouchingLayer;
-        }
-
-        public void SaySomething()
-        {
-            Debug.Log("Something.");
         }
 
         public void AddCoins(int value)
