@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace PixelCrew
@@ -6,37 +7,73 @@ namespace PixelCrew
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteAnimation : MonoBehaviour
     {
-        [SerializeField] private int _frameRate;
-        [SerializeField] private bool _loop;
-        [SerializeField] private Sprite[] _sprites;
+        [SerializeField] [Range(1, 30)] private int _frameRate = 10;
         [SerializeField] private UnityEvent _onComplete;
-
-        private float _secondsPerFrame;
-        private int _currentSpriteIndex;
-        private float _nextFrameTime;
+        [SerializeField] private AnimationClip[] _clips;
         
         private SpriteRenderer _renderer;
 
-        private void Awake()
+        private float _secondsPerFrame;
+        private float _nextFrameTime;
+        private int _currentFrame;
+        private bool _isPlaying = true;
+
+        private int _currentClip;
+
+        private void Start()
         {
             _renderer = GetComponent<SpriteRenderer>();
+            _secondsPerFrame = 1f / _frameRate;
+
+            StartAnimation();
+        }
+
+        private void OnBecomeVisible()
+        {
+            enabled = _isPlaying;
+        }
+
+        private void OnBecameInvisible()
+        {
+            enabled = false;
+        }
+
+        public void SetClip()
+        {
+            for (var i = 0; i < _clips.Length; i++)
+            {
+                if (_clips[i].Name == clipName)
+                {
+                    _currentClip = i;
+                    StartAnimation();
+                    return;
+                }
+            }
+
+            enabled = _isPlaying = false;
+        }
+
+        private void StartAnimation()
+        {
+            _nextFrameTime = Time.time + _secondsPerFrame;
+            _isPlaying = true;
+            _currentFrame = 0;
         }
 
         private void OnEnable()
         {
-            _secondsPerFrame = 1f / _frameRate;
             _nextFrameTime = Time.time + _secondsPerFrame;
-            _currentSpriteIndex = 0;
         }
 
         private void Update()
         {
             if (_nextFrameTime > Time.time) return;
 
-            if (_currentSpriteIndex >= _sprites.Length)
+            var clip = _clips[_currentClip];
+            if (_currentFrame >= clip.Sprites.Length)
             {
-                if (_loop)
-                    _currentSpriteIndex = 0;
+                if (clip.loop)
+                    _currentFrame = 0;
                 else
                 {
                     enabled = false;
@@ -45,9 +82,9 @@ namespace PixelCrew
                 }
             }
 
-            _renderer.sprite = _sprites[_currentSpriteIndex];
+            _renderer.sprite = _sprites[_currentFrame];
             _nextFrameTime += _secondsPerFrame;
-            _currentSpriteIndex++;   
+            _currentFrame++;   
         }
     }
 }
