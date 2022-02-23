@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PixelCrew.Components;
+using UnityEngine;
 
 namespace PixelCrew
 {
@@ -9,8 +10,10 @@ namespace PixelCrew
     {
         [SerializeField] private float _speed;
         [SerializeField] private float _jumpForce;
+        [SerializeField] private float _damageForce;
         [SerializeField] private int _extraJumpsCount;
         [SerializeField] private LayerCheck _groundCheck;
+        [SerializeField] private LayerCheck _interactionCheck;
         public int _coinsAmount;
         private int _adjustedJumpsCount;
         private bool _isGrounded;
@@ -23,6 +26,7 @@ namespace PixelCrew
         private static readonly int IsGroundedKey = Animator.StringToHash("is-grounded");
         private static readonly int IsRunningKey = Animator.StringToHash("is-running");
         private static readonly int VerticalVelocityKey = Animator.StringToHash("vertical-velocity");
+        private static readonly int HitKey = Animator.StringToHash("hit");
 
         private void Awake()
         {
@@ -115,6 +119,20 @@ namespace PixelCrew
         {
             _coinsAmount += value;
             Debug.Log($"Вы подобрали монетку номиналом {value}. Теперь у вас {_coinsAmount} монет.");
+        }
+
+        public void TakeDamage()
+        {
+            _animator.SetTrigger(HitKey);
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damageForce);
+        }
+
+        public void Interact()
+        {
+            if (!_interactionCheck.IsTouchingLayer) return;
+            var interactable = _interactionCheck.Collision.GetComponent<InteractableComponent>();
+            if (interactable != null)
+                interactable.Interact();
         }
     }
 }

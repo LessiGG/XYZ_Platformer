@@ -19,34 +19,23 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
             ""id"": ""92c32ada-5880-47c9-9340-020bdbd4fcc6"",
             ""actions"": [
                 {
-                    ""name"": ""SaySomething"",
-                    ""type"": ""Button"",
-                    ""id"": ""ff6240e7-1f3d-4693-a316-9212eb50738e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""89817ea1-42b1-4807-9c18-175a29d65353"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d2b0bf1-f49f-4154-8885-a3e1ad25d12d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""9189d9d5-c806-400a-a54b-1a7fa8956e4d"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SaySomething"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": ""WASD"",
                     ""id"": ""3774481a-5ffb-4cc6-8451-ca2fe3fb4981"",
@@ -156,6 +145,17 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50c5c224-5ce4-4a0f-a20e-6058415d1e47"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,8 +164,8 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
 }");
         // Hero
         m_Hero = asset.FindActionMap("Hero", throwIfNotFound: true);
-        m_Hero_SaySomething = m_Hero.FindAction("SaySomething", throwIfNotFound: true);
         m_Hero_Movement = m_Hero.FindAction("Movement", throwIfNotFound: true);
+        m_Hero_Interact = m_Hero.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -215,14 +215,14 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
     // Hero
     private readonly InputActionMap m_Hero;
     private IHeroActions m_HeroActionsCallbackInterface;
-    private readonly InputAction m_Hero_SaySomething;
     private readonly InputAction m_Hero_Movement;
+    private readonly InputAction m_Hero_Interact;
     public struct HeroActions
     {
         private @HeroInputAction m_Wrapper;
         public HeroActions(@HeroInputAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @SaySomething => m_Wrapper.m_Hero_SaySomething;
         public InputAction @Movement => m_Wrapper.m_Hero_Movement;
+        public InputAction @Interact => m_Wrapper.m_Hero_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Hero; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,29 +232,29 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_HeroActionsCallbackInterface != null)
             {
-                @SaySomething.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnSaySomething;
-                @SaySomething.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnSaySomething;
-                @SaySomething.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnSaySomething;
                 @Movement.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnMovement;
+                @Interact.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_HeroActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @SaySomething.started += instance.OnSaySomething;
-                @SaySomething.performed += instance.OnSaySomething;
-                @SaySomething.canceled += instance.OnSaySomething;
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
     public HeroActions @Hero => new HeroActions(this);
     public interface IHeroActions
     {
-        void OnSaySomething(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
