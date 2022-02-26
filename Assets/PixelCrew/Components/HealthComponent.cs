@@ -9,11 +9,12 @@ namespace PixelCrew.Components
         [SerializeField] private UnityEvent _onTakeDamage;
         [SerializeField] private UnityEvent _onDie;
 
-        public void ApplyDamage(int damageValue)
+        public void ModifyHealth(int value)
         {
-            _health -= damageValue;
-            _onTakeDamage?.Invoke();
-            
+            _health += value;
+            if (value < 0)
+                _onTakeDamage?.Invoke();
+
             if (_health <= 0)
                 _onDie?.Invoke();
         }
