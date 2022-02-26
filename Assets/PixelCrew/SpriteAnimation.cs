@@ -5,10 +5,9 @@ using UnityEngine.Events;
 namespace PixelCrew
 {
     [RequireComponent(typeof(SpriteRenderer))]
-
     public class SpriteAnimation : MonoBehaviour
     {
-        [SerializeField] private int _frameRate;      
+        [SerializeField] private int _frameRate;
         [SerializeField] private AnimationClips[] _clips;
 
         private SpriteRenderer _renderer;
@@ -27,10 +26,11 @@ namespace PixelCrew
 
         private void Update()
         {
-            if(_isPlaying == false ||_nextFrameTime > Time.time)
+            if (_isPlaying == false || _nextFrameTime > Time.time)
             {
                 return;
-            }        
+            }
+
             if (_currentSpriteIndex >= _clips[_currentClip].Sprites.Length)
             {
                 if (_clips[_currentClip].Loop)
@@ -43,18 +43,19 @@ namespace PixelCrew
                     _clips[_currentClip].OnComplete?.Invoke();
                     if (!_clips[_currentClip].AllowNextClip) return;
                     _currentSpriteIndex = 0;
-                    _currentClip = (int)Mathf.Repeat(_currentClip + 1, _clips.Length);
+                    _currentClip = (int) Mathf.Repeat(_currentClip + 1, _clips.Length);
                     return;
                 }
             }
+
             _renderer.sprite = _clips[_currentClip].Sprites[_currentSpriteIndex];
             _nextFrameTime += _secondsPerFrame;
-            _currentSpriteIndex++;        
+            _currentSpriteIndex++;
         }
 
         public void SetClip(string clipName)
         {
-            for(var i = 0; i < _clips.Length; i++)
+            for (var i = 0; i < _clips.Length; i++)
             {
                 if (clipName != _clips[i].ClipName) continue;
                 _secondsPerFrame = 1f / _frameRate;
@@ -62,7 +63,7 @@ namespace PixelCrew
                 _currentClip = i;
                 _currentSpriteIndex = 0;
                 _isPlaying = true;
-            }        
+            }
         }
 
         [Serializable]
