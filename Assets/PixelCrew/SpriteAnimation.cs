@@ -7,7 +7,7 @@ namespace PixelCrew
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteAnimation : MonoBehaviour
     {
-        [SerializeField] private int _frameRate;
+        [SerializeField] [Range(0, 60)] private int _frameRate;
         [SerializeField] private AnimationClips[] _clips;
 
         private SpriteRenderer _renderer;
@@ -22,6 +22,16 @@ namespace PixelCrew
             _renderer = GetComponent<SpriteRenderer>();
             _secondsPerFrame = 1f / _frameRate;
             _nextFrameTime = Time.time;
+        }
+
+        private void OnBecameVisible()
+        {
+            enabled = _isPlaying;
+        }
+
+        private void OnBecameInvisible()
+        {
+            enabled = false;
         }
 
         private void Update()
