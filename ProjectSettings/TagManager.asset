@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Interactable
+  - SfxAudioSource
   layers:
   - Default
   - TransparentFX
@@ -15,13 +18,13 @@ TagManager:
   - 
   - Ground
   - Interactable
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Trash
+  - Walls
+  - Hero
+  - Collectables
+  - Enemy
+  - Checkers
+  - ShootingTrap
   - 
   - 
   - 
@@ -44,11 +47,14 @@ TagManager:
   - name: Background
     uniqueID: 1153373437
     locked: 0
-  - name: Ground
-    uniqueID: 734914213
-    locked: 0
   - name: Decorations
     uniqueID: 3549131591
+    locked: 0
+  - name: Tilemap
+    uniqueID: 734914213
+    locked: 0
+  - name: Level
+    uniqueID: 3558484853
     locked: 0
   - name: Props
     uniqueID: 3016914027

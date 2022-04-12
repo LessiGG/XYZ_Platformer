@@ -9,13 +9,6 @@ namespace PixelCrew.Components
         [SerializeField] private float _alphaTime =  1;
         [SerializeField] private float _moveTime = 1;
 
-        private DisableInputComponent _disableInput;
-
-        private void Awake()
-        {
-            _disableInput = GetComponent<DisableInputComponent>();
-        }
-
         public void Teleport(GameObject target)
         {
             StartCoroutine(AnimateTeleportation(target));
@@ -25,15 +18,11 @@ namespace PixelCrew.Components
         {
             var sprite = target.GetComponent<SpriteRenderer>();
             
-            _disableInput.SwitchInput();
             yield return AlphaAnimation(sprite, 0);
-            target.GetComponent<CapsuleCollider2D>().enabled = false;
 
             yield return MoveAnimation(target);
             
-            target.GetComponent<CapsuleCollider2D>().enabled = true;
             yield return AlphaAnimation(sprite, 1);
-            _disableInput.SwitchInput();
         }
 
         private IEnumerator MoveAnimation(GameObject target)
