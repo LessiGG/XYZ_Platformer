@@ -6,17 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: fe4aff9a46386b940aa1de027d19e02b
+  - enabled: 1
     path: Assets/Scenes/Level1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 24b0497a00fb4df4e8aca71be7444575
   - enabled: 1
     path: Assets/Scenes/Level2.unity
-    guid: b643dda0976a80e4fa50009ac7d87257
+    guid: 4a14b98a96e693e428de34b4ba8b683d
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: c1d1f3e0d282f2545b4041863d2720ba
+    path: Assets/Scenes/Level3.unity
+    guid: 5dad51df7d4f67a4885593e39b392423
+  - enabled: 1
+    path: Assets/Scenes/Level4 (FlyingBoss).unity
+    guid: 4339662b98d4879458d021b961b39297
   - enabled: 1
     path: Assets/Scenes/Hud.unity
     guid: 808b9b383d1b49c49bfa455ff0310b73
+  - enabled: 1
+    path: Assets/Scenes/LevelLoader.unity
+    guid: 68d800d6fd3c4674a9389188ba7144f3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2e5447393769e3e4b9209b92dbd05f58,
       type: 2}

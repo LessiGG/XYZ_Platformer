@@ -40,12 +40,21 @@ namespace PixelCrew.Creatures.Mobs
                 Destroy(gameObject, 1f);
             }
             
-            var hasAnyTarget = _totems.Any(x => x._vision.IsTouchingLayer);
-            if (!hasAnyTarget || !_cooldown.IsReady) return;
+            if (!HasAnyTarget() || !_cooldown.IsReady) return;
             
             _totems[_currentTotem].Shoot();
             _cooldown.Reset();
             _currentTotem = (int) Mathf.Repeat(_currentTotem + 1, _totems.Count);
+        }
+
+        private bool HasAnyTarget()
+        {
+            foreach (var totemAI in _totems)
+            {
+                if (totemAI._vision.IsTouchingLayer)
+                    return true;
+            }
+            return false;
         }
     }
 }

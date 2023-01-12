@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc581a7a666a4cbd859df653a34cd284, type: 3}
+  m_Name: Goods
+  m_EditorClassIdentifier: 
+  _collection:
+  - _id: Sword
+    _icon: {fileID: 21300000, guid: 869b3604f9b76be459e8c5f0d27a963c, type: 3}
+    _count: 100
+    _price:
+      _itemId: Coin
+      _count: 10
+  - _id: SmallHealthPotion
+    _icon: {fileID: 3714227102187029162, guid: e389aab956c32344fa7cdd201d727f38, type: 3}
+    _count: 5
+    _price:
+      _itemId: Coin
+      _count: 20

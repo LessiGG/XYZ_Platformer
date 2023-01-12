@@ -7,6 +7,12 @@ TagManager:
   - Enemy
   - Interactable
   - SfxAudioSource
+  - PauseMenu
+  - SimpleDialog
+  - PersonalizedDialog
+  - MainUICanvas
+  - CameraFollow
+  - Barrel
   layers:
   - Default
   - TransparentFX
@@ -25,7 +31,7 @@ TagManager:
   - Enemy
   - Checkers
   - ShootingTrap
-  - 
+  - Platform
   - 
   - 
   - 
@@ -61,4 +67,7 @@ TagManager:
     locked: 0
   - name: Creatures
     uniqueID: 2070835385
+    locked: 0
+  - name: Overlay
+    uniqueID: 3519711909
     locked: 0

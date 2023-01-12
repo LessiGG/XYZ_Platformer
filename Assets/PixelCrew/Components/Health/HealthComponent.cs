@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PixelCrew.Model.Data.Properties;
+using System;
+using PixelCrew.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,49 +8,56 @@ namespace PixelCrew.Components.Health
 {
     public class HealthComponent : MonoBehaviour
     {
-        [SerializeField] private int _health;
-        [SerializeField] private UnityEvent _onTakeDamage;
-        [SerializeField] private UnityEvent _onHeal;
+        [SerializeField] private IntProperty _health;
+        [SerializeField] public UnityEvent _onDamage;
         [SerializeField] public UnityEvent _onDie;
-        [SerializeField] private HealthChangeEvent _onChange;
+        [SerializeField] public UnityEvent _onHeal;
+        [SerializeField] public ChangeHealthEvent _onChange;
+        private readonly Lock _isInvulnerable = new Lock();
 
-        public void ModifyHealth(int value)
-         {
-            if (_health <= 0) return;
-            
-            _health += value;
-            _onChange?.Invoke(_health);
-            
-            if (value < 0)
-                _onTakeDamage?.Invoke();
-            
-            if (value > 0)
-                _onHeal?.Invoke();
+        public int MaxHealth { get; set; }
 
-            if (_health <= 0)
-                _onDie?.Invoke();
-         }
-        
-#if UNITY_EDITOR
-        [ContextMenu("Update Health")]
+        public Lock IsInvulnerable => _isInvulnerable;
+
+        private void Awake()
+        {
+            MaxHealth = _health.Value;
+            _isInvulnerable.Release(this);
+        }
+
+        public IntProperty Health
+        {
+            get => _health;
+            set => _health = value;
+        }
+
+        public void ModifyHealth(int delta)
+        {
+            if (_health.Value <= 0) return;
+            if (delta < 0 && IsInvulnerable.IsLocked) return;
+            if (_health.Value + delta > MaxHealth) delta = MaxHealth - _health.Value;
+
+            _health.Value += delta;
+            if (delta < 0) _onDamage?.Invoke();
+            else if (delta > 0) _onHeal?.Invoke();
+
+            if (_health.Value <= 0) _onDie?.Invoke();
+            else UpdateHealth();
+        }
+
         private void UpdateHealth()
         {
-            _onChange.Invoke(_health);
-        }
-        
-#endif
-
-        private void OnDestroy()
-        {
-            _onDie.RemoveAllListeners();
+            _onChange?.Invoke(_health.Value);
         }
 
         public void SetHealth(int health)
         {
-            _health = health;
+            _health.Value = health;
         }
-    
+
         [Serializable]
-        public class HealthChangeEvent : UnityEvent<int>{}
+        public class ChangeHealthEvent : UnityEvent<int>
+        {
+        }
     }
 }

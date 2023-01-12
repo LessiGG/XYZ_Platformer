@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98fc3afaba0744169ce8df23502d9b7d, type: 3}
+  m_Name: en
+  m_EditorClassIdentifier: 
+  _url: https://docs.google.com/spreadsheets/d/e/2PACX-1vTSLIUhu0Kq_UCeQkTO-ZzUR8L-zJwALXmeg1Uj8dvb72yywrnp2QZOoPBzYEfy_XUYAyiDBlthK0N4/pub?gid=0&single=true&output=tsv
+  _localeItems:
+  - Key: menu_title
+    Value: "menu\r"
+  - Key: button_start
+    Value: "start\r"
+  - Key: button_option
+    Value: "options\r"
+  - Key: button_exit
+    Value: "exit\r"
+  - Key: selected_language
+    Value: "Selected language: {0}\r"
+  - Key: button_locale
+    Value: "language\r"
+  - Key: button_apply
+    Value: "apply\r"
+  - Key: settings_title
+    Value: "options\r"
+  - Key: music_text
+    Value: "Music:\r"
+  - Key: button_restart
+    Value: "restart\r"
+  - Key: button_continue
+    Value: "continue\r"
+  - Key: sfx_text
+    Value: "Sfx:\r"
+  - Key: pause_title
+    Value: "pause\r"
+  - Key: shield-info
+    Value: "Press R to put on imune shield!\r"
+  - Key: super-throw-info
+    Value: "Hold T while holding multiple throwables to perform a super throw\r"
+  - Key: double-jump-info
+    Value: "Press spacebar in the air to perform double jump!\r"
+  - Key: buy-button
+    Value: "buy\r"
+  - Key: price-label
+    Value: "price\r"
+  - Key: use-button
+    Value: "use\r"
+  - Key: dialog-upgrade-0
+    Value: "What do you want to upgrade?\r"
+  - Key: dialog-upgrade-1
+    Value: "Show me the perks!\r"
+  - Key: dialog-upgrade-2
+    Value: "Show me stats upgrade!\r"
+  - Key: dialog-upgrade-3
+    Value: "Nothing.\r"
+  - Key: oxxy-0
+    Value: "Penis\r"
+  - Key: oxxy-1
+    Value: "Dick\r"
+  - Key: oxxy-2
+    Value: "Giver\r"
+  - Key: loading_text
+    Value: "loading...\r"
+  - Key: patric-start-0
+    Value: "You shouldn`t have come here.\r"
+  - Key: patric-start-1
+    Value: "We`ll see.\r"
+  - Key: patric-die-0
+    Value: "Well, I suppose this is the end.\r"
+  - Key: patric-die-1
+    Value: "It was a good fight, captain.\r"
+  - Key: patric-die-2
+    Value: "Rest in peace, Patric.\r"
+  - Key: flashlight-info
+    Value: "Press F to toggle the flashlight and see in the dark!\r"
+  - Key: continue-text
+    Value: "Continue...\r"
+  - Key: upgrade-button
+    Value: "upgrade\r"
+  - Key: health-stat
+    Value: "health\r"
+  - Key: speed-stat
+    Value: "speed\r"
+  - Key: range-damage-stat
+    Value: "range damage\r"
+  - Key: range-crit-stat
+    Value: "range crit\r"
+  - Key: melee-damage-stat
+    Value: "melee damage\r"
+  - Key: melee-crit-stat
+    Value: "melee crit\r"
+  - Key: crabby-0
+    Value: "Finally, you`re awake!\r"
+  - Key: crabby-1
+    Value: "I need your help.\r"
+  - Key: crabby-2
+    Value: "Why should I help you? \r"
+  - Key: crabby-3
+    Value: "I know you love money...\r"
+  - Key: crabby-4
+    Value: "Therefore I`m ready to generously pay you...\r"
+  - Key: crabby-5
+    Value: "If you do one favour for me...\r"
+  - Key: crabby-6
+    Value: "Hm-m, sounds tempting. What is the favour?\r"
+  - Key: crabby-7
+    Value: "Kill Partick.\r"
+  - Key: crabby-8
+    Value: "But I don`t have a weapon, and I don`t know how to fight.\r"
+  - Key: crabby-9
+    Value: "Here`s a sword, you`ll find some dummies ahead, deal with them\r"
+  - Key: crabby-10
+    Value: "Then, come back to me\r"
+  - Key: Crabby-quest-0-fail
+    Value: "You didn`t destroy the dummies yet.\r"
+  - Key: Crabby-quest-0-success-0
+    Value: "Perfect! You destroyed all the dummies!\r"
+  - Key: Crabby-quest-0-success-1
+    Value: "Now I`m gonna teach you to throw swords\r"
+  - Key: Crabby-quest-0-success-2
+    Value: "Pick the swords in your quick inventory using \"Q\"\r"
+  - Key: Crabby-quest-0-success-3
+    Value: "Perform a throw using \"T\"\r"
+  - Key: Crabby-quest-0-success-4
+    Value: "I spawned you some target\r"
+  - Key: Crabby-quest-0-success-5
+    Value: "Practice on them, than come back to me.\r"
+  - Key: Crabby-quest-1-fail
+    Value: "You didn`t destroy the targets yet.\r"
+  - Key: Crabby-quest-1-success-0
+    Value: "Perfect! You destroyed all the targets!\r"
+  - Key: Crabby-quest-1-success-1
+    Value: "That is where your coaching comes to an end\r"
+  - Key: Crabby-quest-1-success-2
+    Value: "I`ll give you a key. Deeper on this island you`ll find my house\r"
+  - Key: Crabby-quest-1-success-3
+    Value: "I`ll meet you there.\r"
+  - Key: button_resetAll
+    Value: "reset all\r"
+  - Key: jump
+    Value: "jump\r"
+  - Key: up
+    Value: "up\r"
+  - Key: down
+    Value: "down\r"
+  - Key: left
+    Value: "left\r"
+  - Key: right
+    Value: "right\r"
+  - Key: interact
+    Value: "interact\r"
+  - Key: useItem
+    Value: "use Item\r"
+  - Key: usePerk
+    Value: "use Perk\r"
+  - Key: attack
+    Value: "attack\r"
+  - Key: nextItem
+    Value: "next Item\r"
+  - Key: flashlight
+    Value: "flashlight\r"
+  - Key: controls
+    Value: "controls\r"
+  - Key: reset
+    Value: "reset\r"
+  - Key: input
+    Value: Waiting for input...

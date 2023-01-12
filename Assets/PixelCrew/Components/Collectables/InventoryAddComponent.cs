@@ -1,6 +1,5 @@
 ﻿using PixelCrew.Model.Data;
-using PixelCrew.Model.Definitions;
-using PixelCrew.Utils;
+using PixelCrew.Model.Definitions.Repositories.Items;
 using UnityEngine;
 
 namespace PixelCrew.Components.Collectables
@@ -12,7 +11,7 @@ namespace PixelCrew.Components.Collectables
 
         public void Add(GameObject go)
         {
-            var hero = go.GetInterface<ICanAddInInventory>();
+            var hero = go.GetComponent<ICanAddInInventory>();
             hero?.AddInInventory(_id, _count);
         }
     }

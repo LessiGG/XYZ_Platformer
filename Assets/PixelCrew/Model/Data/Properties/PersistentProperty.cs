@@ -23,7 +23,7 @@
                 Write(value);
                 _stored = _value = value;
 
-                InvokeOnChangeEvent(value, oldValue);
+                InvokeChangedEvent(value, oldValue);
             }
         }
 

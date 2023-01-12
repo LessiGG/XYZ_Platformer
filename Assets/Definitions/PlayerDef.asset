@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5060ee081d0b49fd9c3bfd8340ccadc9, type: 3}
+  m_Name: PlayerDef
+  m_EditorClassIdentifier: 
+  _inventorySize: 10
+  _stats:
+  - _statName: health-stat
+    _id: 0
+    _icon: {fileID: 21300000, guid: 42d5dbf987501024f8cbe6287b6c8504, type: 3}
+    _levels:
+    - _value: 5
+      _price:
+        _itemId: Coin
+        _count: 0
+    - _value: 10
+      _price:
+        _itemId: Coin
+        _count: 20
+    - _value: 20
+      _price:
+        _itemId: Coin
+        _count: 50
+    - _value: 40
+      _price:
+        _itemId: Coin
+        _count: 100
+  - _statName: speed-stat
+    _id: 1
+    _icon: {fileID: 21300000, guid: 0e5afa93463a1b24f9e906af95866d15, type: 3}
+    _levels:
+    - _value: 4
+      _price:
+        _itemId: Coin
+        _count: 0
+    - _value: 5
+      _price:
+        _itemId: Coin
+        _count: 20
+    - _value: 6
+      _price:
+        _itemId: Coin
+        _count: 50
+  - _statName: range-damage-stat
+    _id: 2
+    _icon: {fileID: 21300000, guid: 3b19a0f259f0772498ff691a51e0930f, type: 3}
+    _levels:
+    - _value: 1
+      _price:
+        _itemId: 
+        _count: 0
+    - _value: 2
+      _price:
+        _itemId: Coin
+        _count: 10
+    - _value: 3
+      _price:
+        _itemId: Coin
+        _count: 20
+    - _value: 4
+      _price:
+        _itemId: Coin
+        _count: 50
+    - _value: 5
+      _price:
+        _itemId: Coin
+        _count: 100
+  - _statName: range-crit-stat
+    _id: 4
+    _icon: {fileID: 21300000, guid: aea0020f604f27f4982279f579bb123d, type: 3}
+    _levels:
+    - _value: 10
+      _price:
+        _itemId: Coin
+        _count: 0
+    - _value: 20
+      _price:
+        _itemId: Coin
+        _count: 30
+    - _value: 30
+      _price:
+        _itemId: Coin
+        _count: 50
+    - _value: 40
+      _price:
+        _itemId: Coin
+        _count: 100
+    - _value: 50
+      _price:
+        _itemId: Coin
+        _count: 200
+  - _statName: melee-crit-stat
+    _id: 5
+    _icon: {fileID: 21300000, guid: b0f0704a2b135914ab56744edbbf21a5, type: 3}
+    _levels:
+    - _value: 10
+      _price:
+        _itemId: Coin
+        _count: 0
+    - _value: 20
+      _price:
+        _itemId: Coin
+        _count: 30
+    - _value: 30
+      _price:
+        _itemId: Coin
+        _count: 50
+    - _value: 40
+      _price:
+        _itemId: Coin
+        _count: 100
+    - _value: 50
+      _price:
+        _itemId: Coin
+        _count: 200
+  - _statName: melee-damage-stat
+    _id: 3
+    _icon: {fileID: 21300000, guid: b0f0704a2b135914ab56744edbbf21a5, type: 3}
+    _levels:
+    - _value: 1
+      _price:
+        _itemId: Coin
+        _count: 0
+    - _value: 2
+      _price:
+        _itemId: Coin
+        _count: 30
+    - _value: 3
+      _price:
+        _itemId: Coin
+        _count: 50
+    - _value: 4
+      _price:
+        _itemId: Coin
+        _count: 100
+    - _value: 5
+      _price:
+        _itemId: Coin
+        _count: 200

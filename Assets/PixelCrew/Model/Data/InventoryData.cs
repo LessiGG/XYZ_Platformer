@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using PixelCrew.Model.Definitions;
+using PixelCrew.Model.Definitions.Repositories;
+using PixelCrew.Model.Definitions.Repositories.Items;
 using UnityEngine;
 
 namespace PixelCrew.Model.Data
@@ -15,6 +17,7 @@ namespace PixelCrew.Model.Data
 
         public OnInventoryChanged OnChanged;
 
+        public List<InventoryItemData> Inventory => _inventory;
         public int InventorySize => _inventory.Count;
         public bool IsFull => _inventory.Count >= DefsFacade.I.Player.InventorySize;
 
@@ -50,7 +53,7 @@ namespace PixelCrew.Model.Data
                 AddNonStack(id, value);
             }
             
-            OnChanged?.Invoke(id, GetCount(id));
+            OnChanged?.Invoke(id, Count(id));
         }
 
         private void AddToStack(string id, int value)
@@ -92,7 +95,7 @@ namespace PixelCrew.Model.Data
                 RemoveNonStack(id, value);
             }
 
-            OnChanged?.Invoke(id, GetCount(id));
+            OnChanged?.Invoke(id, Count(id));
         }
 
         private void RemoveFromStack(string id, int value)
@@ -127,9 +130,30 @@ namespace PixelCrew.Model.Data
             return _inventory.FirstOrDefault(itemData => itemData.Id == id);
         }
 
-        public int GetCount(string id)
+        public int Count(string id)
         {
             return _inventory.Where(item => item.Id == id).Sum(item => item.Value);
+        }
+
+        public bool IsEnough(params ItemWithCount[] items)
+        {
+            var joined = new Dictionary<string, int>();
+            
+            foreach (var item in items)
+            {
+                if (joined.ContainsKey(item.ItemId))
+                    joined[item.ItemId] += item.Count;
+                else
+                    joined.Add(item.ItemId, item.Count);
+            }
+            
+            foreach (var kvp in joined)
+            {
+                var count = Count(kvp.Key);
+                if (count < kvp.Value) return false;
+            }
+
+            return true;
         }
     }
 

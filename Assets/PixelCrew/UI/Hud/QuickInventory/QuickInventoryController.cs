@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using PixelCrew.Model;
+using PixelCrew.Model.Data;
+using PixelCrew.UI.Widgets;
 using PixelCrew.Utils.Disposables;
 using UnityEngine;
 
@@ -15,10 +17,13 @@ namespace PixelCrew.UI.Hud.QuickInventory
         
         private GameSession _session;
         private readonly List<InventoryItemWidget> _createdItems = new List<InventoryItemWidget>();
+        
+        private DataGroup<InventoryItemData, InventoryItemWidget> _dataGroup;
 
         private void Start()
         {
-            _session = FindObjectOfType<GameSession>();
+            _dataGroup = new DataGroup<InventoryItemData, InventoryItemWidget>(_prefab, _container);
+            _session = GameSession.Instance;
             _trash.Retain(_session.QuickInventory.Subscribe(Rebuild));
             Rebuild();
         }
@@ -26,26 +31,7 @@ namespace PixelCrew.UI.Hud.QuickInventory
         private void Rebuild()
         {
             var inventory = _session.QuickInventory.Inventory;
-
-            // Создание необходимых предметов
-            for (var i = _createdItems.Count; i < inventory.Length; i++)
-            {
-                var item = Instantiate(_prefab, _container);
-                _createdItems.Add(item);
-            }
-
-            // Обновление данных и активация
-            for (var i = 0; i < inventory.Length; i++)
-            {
-                _createdItems[i].SetData(inventory[i], i);
-                _createdItems[i].gameObject.SetActive(true);
-            }
-            
-            // Спрятать неиспользуемые предметы
-            for (var i = inventory.Length; i < _createdItems.Count; i++)
-            {
-                _createdItems[i].gameObject.SetActive(false);
-            }
+            _dataGroup.SetData(inventory);
         }
 
         private void OnDestroy()

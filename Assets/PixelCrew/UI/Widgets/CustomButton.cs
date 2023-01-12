@@ -12,8 +12,9 @@ namespace PixelCrew.UI.Widgets
         {
             base.DoStateTransition(state, instant);
             
-            _normal.SetActive(state != SelectionState.Pressed);
-            _pressed.SetActive(state == SelectionState.Pressed);
+            var isPressed = state == SelectionState.Pressed || state == SelectionState.Disabled;
+            _normal.SetActive(!isPressed);
+            _pressed.SetActive(isPressed);
         }
     }
 }

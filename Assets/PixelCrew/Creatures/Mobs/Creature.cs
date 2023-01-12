@@ -12,19 +12,20 @@ namespace PixelCrew.Creatures.Mobs
         [SerializeField] private bool _invertScale = false;
         [SerializeField] protected float _speed;
         [SerializeField] protected float _jumpImpulse;
+        [SerializeField] private float _heavyLandingVelocity;
         [SerializeField] private float _damageVelocity;
         
         [SerializeField] private CoolDown _attackCooldown;
         
         [Space] [Header("Main Checkers")]
         [SerializeField] protected ColliderCheck _groundCheck;
-        [SerializeField] private CheckCircleOverlap[] _attackRange;
+        [SerializeField] protected CheckCircleOverlap _attackRange;
         [SerializeField] protected SpawnListComponent _particles;
+        [SerializeField] private LayerMask _groundLayer;
         
-        private bool _isJumping;
-        
+        protected bool IsJumping;
         protected bool IsGrounded;
-        protected Vector2 Direction;
+        private Vector2 _direction;
         protected Rigidbody2D Rigidbody;
         protected PlaySoundsComponent Sounds;
         protected Animator Animator;
@@ -35,6 +36,18 @@ namespace PixelCrew.Creatures.Mobs
         private static readonly int HitKey = Animator.StringToHash("hit");
         private static readonly int AttackKey = Animator.StringToHash("attack");
 
+        public Vector2 Direction
+        {
+            get => _direction;
+            set => _direction = value;
+        }
+        
+        public float Speed
+        {
+            get => _speed;
+            set => _speed = value;
+        }
+
         protected virtual void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
@@ -44,7 +57,7 @@ namespace PixelCrew.Creatures.Mobs
 
         public void SetDirection(Vector2 direction)
         {
-            Direction = direction;
+            _direction = direction;
         }
 
         protected virtual void Update()
@@ -59,31 +72,31 @@ namespace PixelCrew.Creatures.Mobs
             Rigidbody.velocity = new Vector2(xVelocity, yVelocity);
 
             Animator.SetFloat(VerticalVelocityKey, Rigidbody.velocity.y);
-            Animator.SetBool(IsRunningKey, Direction.x != 0);
+            Animator.SetBool(IsRunningKey, _direction.x != 0);
             Animator.SetBool(IsGroundedKey, IsGrounded);
             
-            UpdateSpriteDirection(Direction);
+            UpdateSpriteDirection(_direction);
         }
 
         protected virtual float CalculateYVelocity()
         {
             var yVelocity = Rigidbody.velocity.y;
-            var isJumpPressing = Direction.y > 0;
+            var isJumpPressing = _direction.y > 0;
 
             if (IsGrounded)
             {
-                _isJumping = false;
+                IsJumping = false;
             }
             
             if (isJumpPressing)
             {
-                _isJumping = true;
+                IsJumping = true;
                 
                 var isFalling = Rigidbody.velocity.y <= 0.001f;
                 yVelocity = isFalling ? CalculateJumpVelocity(yVelocity) : yVelocity;
             }
 
-            else if (Rigidbody.velocity.y > 0 && _isJumping)
+            else if (Rigidbody.velocity.y > 0 && IsJumping)
                 yVelocity *= 0.5f;
 
             return yVelocity;
@@ -91,7 +104,12 @@ namespace PixelCrew.Creatures.Mobs
         
         protected virtual float CalculateXVelocity()
         {
-            return  Direction.x * _speed;;
+            return _direction.x * CalculateSpeed();
+        }
+
+        protected virtual float CalculateSpeed()
+        {
+            return _speed;
         }
 
         protected virtual float CalculateJumpVelocity(float yVelocity)
@@ -120,10 +138,21 @@ namespace PixelCrew.Creatures.Mobs
             else if (direction.x < 0)
                 transform.localScale = new Vector3(-1 * scaleModifier, 1, 1);
         }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.IsInLayer(_groundLayer))
+            {
+                var contact = collision.contacts[0];
+                if (contact.relativeVelocity.y >= _heavyLandingVelocity)
+                {
+                    _particles.Spawn("HeavyLanding");
+                }
+            }
+        }
 
         public virtual void TakeDamage()
         {
-            _isJumping = false;
+            IsJumping = false;
             Animator.SetTrigger(HitKey);
             Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, _damageVelocity);
         }
@@ -137,12 +166,9 @@ namespace PixelCrew.Creatures.Mobs
             Sounds.Play("Attack");
         }
         
-        public void OnDoAttack()
+        public virtual void OnDoAttack()
         {
-            foreach (var checkCircleOverlap in _attackRange)
-            {
-               checkCircleOverlap.Check(); 
-            }
+            _attackRange.Check(); 
         }
     }
 }

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d4b6506f4143ee88db17e4c21b1b30, type: 3}
+  m_Name: Perks
+  m_EditorClassIdentifier: 
+  _collection:
+  - _id: double-jump
+    _icon: {fileID: 21300000, guid: 07cdcc2315b7b554dba530d615e888b7, type: 3}
+    _info: double-jump-info
+    _price:
+      _itemId: Emerald
+      _count: 2
+    _cooldown: 5
+  - _id: super-throw
+    _icon: {fileID: 21300000, guid: 2130341d47a71ed45849bd715a3106bc, type: 3}
+    _info: super-throw-info
+    _price:
+      _itemId: Emerald
+      _count: 5
+    _cooldown: 5
+  - _id: shield
+    _icon: {fileID: 21300000, guid: eed43830877c1304d97d58ec173563dc, type: 3}
+    _info: shield-info
+    _price:
+      _itemId: Emerald
+      _count: 10
+    _cooldown: 5
+  - _id: flashlight
+    _icon: {fileID: 21300000, guid: 447429c605eaf0643a8010c89cc1c205, type: 3}
+    _info: flashlight-info
+    _price:
+      _itemId: Emerald
+      _count: 15
+    _cooldown: 0

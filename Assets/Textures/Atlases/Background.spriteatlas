@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Background
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: de72d33a07eb9e54e82be72ea9fbc86d, type: 3}
+    - {fileID: 2800000, guid: db776de438132cd47a975e4350b7477c, type: 3}
+    - {fileID: 2800000, guid: 6b2ddaa29ac78e247bedbbada02f507d, type: 3}
+    - {fileID: 2800000, guid: e90d42f114127ca4ea974d261e4ca3c8, type: 3}
+    - {fileID: 2800000, guid: 8146719925d6e51419e697c42bbd9a0d, type: 3}
+    - {fileID: 2800000, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+    - {fileID: 2800000, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: e90d42f114127ca4ea974d261e4ca3c8, type: 3}
+  - {fileID: 21300000, guid: 6b2ddaa29ac78e247bedbbada02f507d, type: 3}
+  - {fileID: 21300000, guid: db776de438132cd47a975e4350b7477c, type: 3}
+  - {fileID: 802857254159732353, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: 1278475588773109743, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: -6487789065682943626, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: -2645899244835350471, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: 7744047822205964645, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: 1981876992937066421, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: 262518517033693272, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: 8683632313750085214, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: 1400697303485121525, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: 762285979657935423, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: 3531074664856275464, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: -6024505487453159095, guid: c5cf7316432a7ee43a1271d16bbe4ba6, type: 3}
+  - {fileID: -6726507372564969465, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+  - {fileID: 6451580281456240679, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+  - {fileID: 146961160014910225, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+  - {fileID: -4666071756097916248, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+  - {fileID: -6232402627841558155, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+  - {fileID: -1922304144749363281, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+  - {fileID: 7515456911145536941, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+  - {fileID: 8188337825271032076, guid: 8410eb16ed366b544ad599bd3ba5f151, type: 3}
+  - {fileID: 21300000, guid: 8146719925d6e51419e697c42bbd9a0d, type: 3}
+  - {fileID: 21300000, guid: de72d33a07eb9e54e82be72ea9fbc86d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Cloud3
+  - Cloud2
+  - Cloud1
+  - PalmTreeBackgroundSheet_10
+  - PalmTreeBackgroundSheet_11
+  - PalmTreeBackgroundSheet_5
+  - PalmTreeBackgroundSheet_4
+  - PalmTreeBackgroundSheet_7
+  - PalmTreeBackgroundSheet_6
+  - PalmTreeBackgroundSheet_1
+  - PalmTreeBackgroundSheet_0
+  - PalmTreeBackgroundSheet_3
+  - PalmTreeBackgroundSheet_2
+  - PalmTreeBackgroundSheet_9
+  - PalmTreeBackgroundSheet_8
+  - ChainSmall_6
+  - ChainSmall_7
+  - ChainSmall_4
+  - ChainSmall_5
+  - ChainSmall_2
+  - ChainSmall_3
+  - ChainSmall_0
+  - ChainSmall_1
+  - CloudBig
+  - BG Image
+  m_Tag: Background
+  m_IsVariant: 0

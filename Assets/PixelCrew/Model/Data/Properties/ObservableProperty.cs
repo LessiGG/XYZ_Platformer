@@ -12,14 +12,14 @@ namespace PixelCrew.Model.Data.Properties
         public delegate void OnPropertyChanged(TPropertyType newValue, TPropertyType oldValue);
 
         public event OnPropertyChanged OnChanged;
-        
-        public IDisposable Subsribe(OnPropertyChanged call)
+
+        public IDisposable Subscribe(OnPropertyChanged call)
         {
             OnChanged += call;
             return new ActionDisposable(() => OnChanged -= call);
         }
-        
-        public IDisposable SubsribeAndInvoke(OnPropertyChanged call)
+
+        public IDisposable SubscribeAndInvoke(OnPropertyChanged call)
         {
             OnChanged += call;
             var dispose = new ActionDisposable(() => OnChanged -= call);
@@ -32,15 +32,15 @@ namespace PixelCrew.Model.Data.Properties
             get => _value;
             set
             {
-                var isSame = _value.Equals(value);
+                var isSame = _value?.Equals(value) ?? false;
                 if (isSame) return;
                 var oldValue = _value;
                 _value = value;
-                InvokeOnChangeEvent(_value, oldValue);
+                InvokeChangedEvent(_value, oldValue);
             }
         }
 
-        protected void InvokeOnChangeEvent(TPropertyType newValue, TPropertyType oldValue)
+        protected void InvokeChangedEvent(TPropertyType newValue, TPropertyType oldValue)
         {
             OnChanged?.Invoke(newValue, oldValue);
         }

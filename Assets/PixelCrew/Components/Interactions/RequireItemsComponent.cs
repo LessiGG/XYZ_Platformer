@@ -15,12 +15,12 @@ namespace PixelCrew.Components.Interactions
 
         public void Check()
         {
-            var session = FindObjectOfType<GameSession>();
+            var session = GameSession.Instance;
             var areAllRequirementsDone = true;
 
             foreach (var item in _required)
             {
-                var numItems = session.Data.Inventory.GetCount(item.Id);
+                var numItems = session.Data.Inventory.Count(item.Id);
 
                 if (numItems < item.Value)
                     areAllRequirementsDone = false;

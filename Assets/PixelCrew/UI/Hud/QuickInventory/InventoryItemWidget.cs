@@ -1,14 +1,15 @@
-﻿using System;
-using PixelCrew.Model;
+﻿using PixelCrew.Model;
 using PixelCrew.Model.Data;
 using PixelCrew.Model.Definitions;
+using PixelCrew.Model.Definitions.Repositories.Items;
+using PixelCrew.UI.Widgets;
 using PixelCrew.Utils.Disposables;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PixelCrew.UI.Hud.QuickInventory
 {
-    public class InventoryItemWidget : MonoBehaviour
+    public class InventoryItemWidget : MonoBehaviour, IItemRenderer<InventoryItemData>
     {
         [SerializeField] private Image _icon;
         [SerializeField] private GameObject _selection;
@@ -20,10 +21,10 @@ namespace PixelCrew.UI.Hud.QuickInventory
 
         private void Start()
         {
-            var session = FindObjectOfType<GameSession>();
+            var session = GameSession.Instance;
             var index = session.QuickInventory.SelectedIndex;
             
-            _trash.Retain( index.SubsribeAndInvoke(OnIndexChanged));
+            _trash.Retain( index.SubscribeAndInvoke(OnIndexChanged));
         }
 
         private void OnIndexChanged(int newValue, int _)

@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40af41ddd70e46179e2cbde4983381a2, type: 3}
+  m_Name: Crabby-enter-island
+  m_EditorClassIdentifier: 
+  _data:
+    _type: 1
+    _sentences:
+    - _value: crabby-0
+      _character: Crabby
+      _side: 1
+    - _value: crabby-1
+      _character: Crabby
+      _side: 1
+    - _value: crabby-2
+      _character: Captain
+      _side: 0
+    - _value: crabby-3
+      _character: Crabby
+      _side: 1
+    - _value: crabby-4
+      _character: Crabby
+      _side: 1
+    - _value: crabby-5
+      _character: Crabby
+      _side: 1
+    - _value: crabby-6
+      _character: Captain
+      _side: 0
+    - _value: crabby-7
+      _character: Crabby
+      _side: 1
+    - _value: crabby-8
+      _character: Captain
+      _side: 0
+    - _value: crabby-9
+      _character: Crabby
+      _side: 1
+    - _value: crabby-10
+      _character: Crabby
+      _side: 1

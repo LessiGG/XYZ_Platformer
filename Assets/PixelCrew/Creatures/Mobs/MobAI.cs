@@ -1,138 +1,82 @@
-﻿using System.Collections;
-using PixelCrew.Components.ColliderBased;
+﻿using PixelCrew.Components.ColliderBased;
+using System.Collections;
 using PixelCrew.Components.GoBased;
 using PixelCrew.Creatures.Mobs.Patrolling;
 using UnityEngine;
 
 namespace PixelCrew.Creatures.Mobs
 {
+    [RequireComponent(typeof(SpawnListComponent))]
+    [RequireComponent(typeof(Creature))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Patrol))]
     public class MobAI : MonoBehaviour
     {
-        [SerializeField] private ColliderCheck _vision;
-        [SerializeField] private ColliderCheck _canAttack;
-        
-        [SerializeField] private float _attackCooldown = 1f;
-        [SerializeField] private float _exclamationDelay = 0.5f;
-        [SerializeField] private float _questionDelay = 0.5f;
+        [Space]
+        [Header("Cooldowns")]
+        [SerializeField] protected float _alarmDelay = 0.5f;
+        [SerializeField] protected float _attackCooldown = 1f;
+        [SerializeField] protected float _missHeroCooldown = 1f;
+        [Space]
+        [Header("Layer checks")]
+        [SerializeField] protected LayerCheck _vision;
 
-        private IEnumerator _current;
-        private GameObject _target;
+        private Coroutine _current;
+        protected GameObject Target;
 
-        private SpawnListComponent _particles;
-        private Creature _creature;
-        private Animator _animator;
-        private Patrol _patrol;
+        protected Creature Mob;
+        protected Animator MobAnimator;
+        protected SpawnListComponent Particles;
+        protected bool IsDead;
+        protected Patrol Patrol;
 
-        private bool _isDead;
-        
         private static readonly int IsDeadKey = Animator.StringToHash("is-dead");
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            _particles = GetComponent<SpawnListComponent>();
-            _creature = GetComponent<Creature>();
-            _animator = GetComponent<Animator>();
-            _patrol = GetComponent<Patrol>();
+            Particles = GetComponent<SpawnListComponent>();
+            Mob = GetComponent<Creature>();
+            MobAnimator = GetComponent<Animator>();
+            Patrol = GetComponent<Patrol>();
         }
 
         private void Start()
         {
-            StartState(_patrol.DoPatrol());
+            StartState(Patrol.DoPatrol());
         }
 
-        public void OnHeroInVision(GameObject goInVision)
-        {
-            if (_isDead) return;
-            
-            _target = goInVision;
-            
-            StartState(AgroToHero());
-        }
+        public virtual void OnHeroInVision(GameObject go) { }
 
-        private IEnumerator AgroToHero()
-        {
-            LookAtHero();
-            
-            _particles.Spawn("Exclamation");
-
-            yield return new WaitForSeconds(_exclamationDelay);
-
-            StartState(GoToHero());
-        }
-
-        private void LookAtHero()
-        {
-            var direction = GetDirectionToTarget();
-            _creature.SetDirection(Vector2.zero);
-            _creature.UpdateSpriteDirection(direction);
-        }
-
-        private IEnumerator GoToHero()
-        {
-            while (_vision.IsTouchingLayer)
-            {
-                if (_canAttack.IsTouchingLayer)
-                {
-                    StartState(Attack());
-                }
-                else
-                {
-                    SetDirectionToTarget();
-                }
-                
-                yield return null;
-            }
-            
-            _creature.SetDirection(Vector2.zero);
-            _particles.Spawn("Question");
-            yield return new WaitForSeconds(_questionDelay);
-            
-            StartState(_patrol.DoPatrol());
-        }
-
-        private IEnumerator Attack()
-        {
-            while (_canAttack.IsTouchingLayer)
-            {
-                _creature.Attack();
-                yield return new WaitForSeconds(_attackCooldown);
-            }
-            
-            StartState(GoToHero());
-        }
-
-        private void SetDirectionToTarget()
-        {
-            var direction = GetDirectionToTarget();
-            _creature.SetDirection(direction);
-        }
-
-        private Vector2 GetDirectionToTarget()
-        {
-            var direction = _target.transform.position - transform.position;
-            direction.y = 0f;
-            return direction.normalized;
-        }
-
-        private void StartState(IEnumerator coroutine)
-        {
-            _creature.SetDirection(Vector2.zero);
-            
-            if (_current != null)
-                StopCoroutine(_current);
-            
-            _current = coroutine;
-            StartCoroutine(coroutine);
-        }
+        protected virtual IEnumerator AgroToHero() { yield return null; }
 
         public void OnDie()
         {
-            _creature.SetDirection(Vector2.zero);
-            _isDead = true;
-            _animator.SetBool(IsDeadKey, true);
-            
-            if (_current != null)
-                StopCoroutine(_current);
+            IsDead = true;
+            MobAnimator.SetBool(IsDeadKey, true);
+
+            StopAllCoroutines();
+            StopMoving();
+        }
+
+        protected virtual void SetDirectionToTarget()
+        {
+            var direction = Target.transform.position - transform.position;
+            direction.y = 0;
+
+            Mob.Direction = direction.normalized;
+        }
+
+        protected void StartState(IEnumerator coroutine)
+        {
+            StopMoving();
+            if (_current != null) StopCoroutine(_current);
+
+            _current = StartCoroutine(coroutine);
+        }
+
+        protected void StopMoving()
+        {
+            Mob.Direction = Vector2.zero;
         }
     }
 }

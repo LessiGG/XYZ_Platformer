@@ -8,7 +8,7 @@ namespace PixelCrew.Animations
 
     public class SpriteAnimation : MonoBehaviour
     {
-        [SerializeField] private int _frameRate = 10;      
+        [Range(1, 60)] [SerializeField] private int _frameRate = 10;      
         [SerializeField] private AnimationClips[] _clips;
 
         private SpriteRenderer _renderer;
@@ -27,7 +27,7 @@ namespace PixelCrew.Animations
 
         private void Update()
         {
-            if(_isPlaying == false ||_nextFrameTime > Time.time)
+            if (_isPlaying == false ||_nextFrameTime > Time.time)
             {
                 return;
             }        
@@ -56,7 +56,7 @@ namespace PixelCrew.Animations
 
         public void SetClip(string clipName)
         {
-            for(int i = 0; i < _clips.Length; i++)
+            for (var i = 0; i < _clips.Length; i++)
             {
                 if (clipName == _clips[i].ClipName)
                 {

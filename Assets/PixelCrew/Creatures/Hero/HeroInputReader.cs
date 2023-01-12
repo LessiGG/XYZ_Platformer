@@ -8,8 +8,8 @@ namespace PixelCrew.Creatures.Hero
         [SerializeField] private Hero _hero;
         public void OnMovement(InputAction.CallbackContext context)
         {
-            var direction = context.ReadValue<Vector2>();
-            _hero.SetDirection(direction);
+            _hero.Direction = context.ReadValue<Vector2>();
+            if (_hero.Direction.y == 0) _hero.IsJumpButtonPressed = false;
         }
 
         public void OnInteract(InputAction.CallbackContext context)
@@ -24,19 +24,13 @@ namespace PixelCrew.Creatures.Hero
                 _hero.Attack();
         }
 
-        public void OnDash(InputAction.CallbackContext context)
-        {
-            if (context.performed)
-                _hero.Dash();
-        }
-
-        public void OnThrow(InputAction.CallbackContext context)
+        public void OnUse(InputAction.CallbackContext context)
         {
             if (context.started)
                 _hero.StartThrowing();
             
             if (context.canceled)
-                _hero.PerformThrowing();
+                _hero.UseItem();
         }
 
         public void OnNextItem(InputAction.CallbackContext context)
@@ -50,11 +44,29 @@ namespace PixelCrew.Creatures.Hero
             if (context.performed)
                 _hero.PauseGame();
         }
-        
-        public void OnUseItem(InputAction.CallbackContext context)
+
+        public void OnUsePerk(InputAction.CallbackContext context)
         {
             if (context.performed)
-                _hero.UseItem();
+                _hero.UsePerk();
+        }
+
+        public void OnToggleFlashlight(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                _hero.ToggleFlashlight();
+        }
+
+        public void OnDropDown(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                _hero.DropDown();
+        }
+
+        public void OnClimb(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                _hero.Climb();
         }
     }
 }

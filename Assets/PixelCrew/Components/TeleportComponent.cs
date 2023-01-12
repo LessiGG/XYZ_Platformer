@@ -14,6 +14,11 @@ namespace PixelCrew.Components
             StartCoroutine(AnimateTeleportation(target));
         }
 
+        public void HideAlpha(GameObject target)
+        {
+            StartCoroutine(AnimateAlpha(target));
+        }
+
         private IEnumerator AnimateTeleportation(GameObject target)
         {
             var sprite = target.GetComponent<SpriteRenderer>();
@@ -23,6 +28,13 @@ namespace PixelCrew.Components
             yield return MoveAnimation(target);
             
             yield return AlphaAnimation(sprite, 1);
+        }
+        
+        private IEnumerator AnimateAlpha(GameObject target)
+        {
+            var sprite = target.GetComponent<SpriteRenderer>();
+            
+            yield return AlphaAnimation(sprite, 0);
         }
 
         private IEnumerator MoveAnimation(GameObject target)
